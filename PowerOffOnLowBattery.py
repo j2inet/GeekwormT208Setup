@@ -48,10 +48,9 @@ def schedule_shutdown():
 def cancel_shutdown():
     global shutdown_thread
     if shutdown_thread != -1:
-
         print('cancelling shutdown\n', shutdown_thread)
         shutdown_thread.stop()
-        shutdown_thread = None
+        shutdown_thread = -1
         print('Thread stopped\n')
     return
 
@@ -94,7 +93,6 @@ while True:
     print(status);
     logFile = open("log.csv", "a")
     logFile.write(status)
-
     time.sleep(60)
 
 
