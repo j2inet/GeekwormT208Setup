@@ -47,5 +47,5 @@ GPIO.add_event_detect(PLD_PIN, GPIO.BOTH, power_status_changed)
 #shutdown if necessary
 
 power_status_changed(PLD_PIN)
-raw_input("monitoring power\n\nPress 'Enter' to exit")
+raw_input("\x1b[0;37mmonitoring power\n\nPress '\x1b[1;36mEnter'\x1b[0;37m to exit")
 #Anyon notice the irony if the button labeled "enter" being used to exit?
