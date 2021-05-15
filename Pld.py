@@ -13,7 +13,7 @@ print(GPIO.getmode(), GPIO.BOARD)
 GPIO.setup(PLD_PIN, GPIO.IN)
 
 def my_callback(channel):
-    if GPIO.input(PLD_PIN):     # if port 6 == 1
+    if GPIO.input(channel):     # if port 6 == 1
         print "---AC Power Loss OR Power Adapter Failure---"
     else:                  # if port 6 != 1
         print "---AC Power OK,Power Adapter OK---"
