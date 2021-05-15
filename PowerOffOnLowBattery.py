@@ -10,8 +10,8 @@ from datetime import datetime
 
 POWER_OFF_DELAY = 15
 
-battery_warning_threshold = 94
-battery_shutdown_threshold = 93
+battery_warning_threshold = 30
+battery_shutdown_threshold = 15
 warning_issued = False
 battery_monitor_thread = None
 bus = smbus.SMBus(1) 
