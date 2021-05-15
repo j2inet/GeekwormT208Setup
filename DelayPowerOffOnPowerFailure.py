@@ -1,7 +1,7 @@
 import threading
 import time
 import Jetson.GPIO as GPIO
-
+import os
 
 POWER_OFF_DELAY = 15
 POWER_OFF_DELAY_SECONDARY = 2
