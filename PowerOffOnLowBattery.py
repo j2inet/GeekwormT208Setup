@@ -10,15 +10,15 @@ from datetime import datetime
 
 POWER_OFF_DELAY = 15
 
-battery_warning_threshold = 100
-battery_shutdown_threshold = 98
+battery_warning_threshold = 94
+battery_shutdown_threshold = 93
 warning_issued = False
 battery_monitor_thread = None
 bus = smbus.SMBus(1) 
 battery_level = -1
 
-shutdown_thread = None
-monitor_thread = None
+shutdown_thread = -1
+monitor_thread = -1
 
 def readCapacity(bus):
      address = 0x36
@@ -38,7 +38,8 @@ def clear_warning():
     warning_issued = False
 
 def schedule_shutdown():
-    if(shutdown_thread != None):
+    global shutdown_thread
+    if(shutdown_thread == -1):
         print('shutdown schedule\n')
         shutdown_thread = threading.Thread(target=shutdown, args=())
         shutdown_thread.start()
@@ -46,8 +47,9 @@ def schedule_shutdown():
 
 def cancel_shutdown():
     global shutdown_thread
-    if shutdown_thread != None:
-        print('cancelling shutdown\n')
+    if shutdown_thread != -1:
+
+        print('cancelling shutdown\n', shutdown_thread)
         shutdown_thread.stop()
         shutdown_thread = None
         print('Thread stopped\n')
@@ -66,10 +68,10 @@ def monitor_battery():
 
         battery_level = readCapacity(bus)
         print ('battery level',battery_level)
-        if(battery_level < battery_shutdown_threshold):
+        if(battery_level <= battery_shutdown_threshold):
             print('power level too low. Scheduling shutdown')
             schedule_shutdown()
-        elif (battery_level < battery_warning_threshold):
+        elif (battery_level <= battery_warning_threshold):
             issue_warning()
             cancel_shutdown()
         else:
